@@ -1,0 +1,126 @@
+Essentials is a series that covers the most used and important methods for X topic. It’s a series for developers who know another language or someone who wants a quick start. In this post, we cover types and data structures.
+I don’t go into too much depth here, but instead, I list common topics you’ll eventually encounter in JS and resources to learn about them. In other words, I get you up to speed now rather than you encounter these later.
+Table of Contents
+— — Prerequisites
+— Types & Data Structures Basics
+— — Does JS have types?
+— — Statically Typed
+— — Dynamically Typed
+— — Weakly Typed
+— — Primitives
+— — Objects
+— — So when does it get confusing?
+— Important Guidelines
+— Some Confusing Parts
+— — Why is Null an Object?
+— — Why is not a number a number?
+— — Double Equals vs Triple Equals
+— — A primitive is not an object and has no methods of its own
+— Tips and Tricks
+— References and Links
+Prerequisites
+Nothing is required for this topic. It’s a basic fundamental part of any language, but it quickly gets confusing in JavaScript.
+Types & Data Structures Basics
+We’ll be using the typeof operator to explore types below.
+Does JS have types?
+Some may argue that JS is untyped or that it shouldn’t call its type system types. It doesn’t require you to declare a type when making a variable like in some other strongly typed languages i.e int x = 10 I ( and the JS specs ) would argue that JS does have types.
+JS is both dynamically typed and weakly typed.
+Statically Typed
+JS is not statically typed unless you’re using a language, tool such as Typescript or Flow that compiles to JS code. But we’ll briefly cover it for comparison reasons.
+Statically typed means the type is enforced and won’t change so easily. All variables must be declared with a type.
+int x = 5
+string y = 'abc'
+Dynamically Typed
+Dynamically typed languages infer variable types at runtime. This means once your code is run the compiler/interpreter will see your variable and its value then decide what type it is. The type is still enforced here, it just decides what the type is.
+var a = 1 // int
+b = 'test' // string
+// etc
+Weakly Typed
+Weakly typed languages allow types to be inferred as another type. For example, 1 + '2' // '12' In JS it sees you’re trying to add a number with a string — an invalid operation — so it coerces your number into a string and results in the string ‘12’.
+Primitives
+These six types are considered to be primitives. A primitive is not an object and has no methods of its own. All primitives are immutable.
+Boolean — true or false
+Null — no value
+Undefined — a declared variable but hasn’t been given a value
+Number — integers, floats, etc
+String — an array of characters i.e words
+Symbol — a unique value that's not equal to any other value
+Everything else is an Object type.
+Image for post
+primitives basics
+Objects
+Here are some of the standard objects. Notice some of these were on the primitive list too, but don’t confuse them. These act as constructors to create those types. i.e Boolean('a') // true
+There are two that are the main ones you’ll use for your own structures:
+Object
+Array
+There are many other objects too just to list a few:
+Function
+Boolean
+Symbol
+Error
+Number
+String
+RegExp
+Math
+Set
+Image for post
+Objects basics
+So when does it get confusing?
+It gets confusing when your types mix and JavaScript decides what type your value is using type coercion. There is a whole article on this and I couldn’t explain it any better:
+JavaScript type coercion explained
+Know your engines
+medium.freecodecamp.org
+Image for post
+Next, I’ll go over some of the other confusing parts and some tips and tricks.
+Important Guidelines
+All primitive values are immutable
+Be aware of type coercion
+There is no static typing i.e int num = 5
+The JavaScript engine decides what type it is
+Some Confusing Parts
+JavaScript has plenty of confusing parts — see Wtf JS?
+Why is Null an Object?
+The documentation lists it as a primitive type, yet its typeof returns ‘object’.
+Basically, this is a bug that isn’t fixed because it would break existing code. This bug has been around since the first version of JavaScript. The bug comes from the typeof function in the JS source — I’ll use some pseudo code to simplify it.
+Image for post
+pseudo typeof
+Did you catch the bug? They didn’t check for null…
+Read more about the rejected fix proposal here and see this part of the JS source here.
+Why is not a number a number?
+typeof NaN // 'number' WTF!?
+The short answer is that NaN is defined as a numeric type, but it’s not a real number. NaN is the result of some mathematical operations that can’t be quantified as a number.
+Or an even shorter answer is because the spec says so.
+ECMAScript Language Specification - ECMA-262 Edition 5.1
+This document and possible translations of it may be copied and furnished to others, and derivative works that comment…
+www.ecma-international.org
+NaN and typeof
+An in-depth look at the NaN property, and why it is considered a number type
+javascriptrefined.io
+Double Equals vs Triple Equals
+There’s an article on CodeBurst for this topic too.
+JavaScript — Double Equals vs. Triple Equals
+Learn equality in JavaScript in 3 minutes
+codeburst.io
+When in doubt always use triple equals.
+A primitive is not an object and has no methods of its own
+“You said primitives have no methods but then explain how 'abc'.length works!”
+This was not a mistake and that comes from the documentation itself.
+A primitive (primitive value, primitive data type) is data that is not an object and has no methods. In JavaScript, there are 6 primitive data types: string, number, boolean, null, undefined, symbol (new in ECMAScript 2015).
+Primitive:
+A primitive (primitive value, primitive data type) is data that is not an object and has no methods. In JavaScript…
+developer.mozilla.org
+First, do not confuse constructors with primitives — every primitive has a constructor or parent object. JS knows when you’re trying to access a method on a primitive and behind the scenes, it will use the constructor to make an object out of your primitive. Once it runs the method that object is then garbage collected. ( removed from memory )
+See some examples below.
+Image for post
+string is a primitive
+Strings are in fact primitives as described in the article, not entire objects. JS knows when you try to access a method on the String object and coerces your primitive into a string object. When it’s done the temporary object is garbage collected and life continues as usual.
+Image for post
+string constructor
+Read more about this in the YDKJS book by Kyle Simpson:
+getify/You-Dont-Know-JS
+A book series on JavaScript. @YDKJS on twitter. Contribute to getify/You-Dont-Know-JS development by creating an…
+github.com
+Tips and Tricks
+Ways to use types to your advantage.
+Use these with caution. For the most part, you should use Number(str) parseInt(x) String(num) etc. These are here so if you see it in someone else's code you’ll know what it’s doing. Or if you’re playing code golf ⛳️
+Image for post
